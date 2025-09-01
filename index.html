@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Happy Birthday 🎉</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        background: linear-gradient(135deg, #fff2e1, #ffa94d);
+        overflow: hidden;
+        font-family: "Arial", sans-serif;
+      }
+
+      .happy-birthday-banner {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 48px;
+        font-family: "Pacifico", cursive;
+        color: #fff;
+        text-shadow: 2px 2px 5px #f4801b;
+      }
+
+      /* --- Layout --- */
+      .cake-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 1000px;
+        margin: 30px auto;
+      }
+      .cake-column {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 320px;
+        padding: 10px;
+      }
+
+      .card {
+        width: 90%;
+        height: 440px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        padding: 0; /* bỏ padding cho sát ảnh */
+      }
+
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* ảnh lấp đầy khung nhưng không méo */
+        border-radius: 12px; /* bo tròn giống card */
+      }
+
+      /* --- Bánh giữa --- */
+      .cake {
+        position: relative;
+        width: 250px;
+        height: 200px;
+        z-index: 2;
+      }
+      .plate {
+        width: 270px;
+        height: 110px;
+        position: absolute;
+        bottom: -10px;
+        left: -10px;
+        background-color: #ccc;
+        border-radius: 50%;
+        box-shadow: 0 2px 0 #b3b3b3, 0 4px 0 #b3b3b3,
+          0 5px 40px rgba(0, 0, 0, 0.5);
+      }
+      .layer {
+        display: block;
+        width: 250px;
+        height: 100px;
+        border-radius: 50%;
+        background: #ffd1df;
+        position: absolute;
+      }
+      .layer-top {
+        top: 0;
+      }
+      .layer-middle {
+        top: 33px;
+      }
+      .layer-bottom {
+        top: 66px;
+      }
+      .icing {
+        top: 2px;
+        left: 5px;
+        background-color: #f0e4d0;
+        width: 240px;
+        height: 90px;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 1;
+      }
+      .icing:before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        right: 5px;
+        bottom: 6px;
+        left: 5px;
+        background-color: #d5ffff;
+        border-radius: 50%;
+        box-shadow: 0 0 4px #f0e4d0, 0 0 4px #f0e4d0;
+        z-index: 1;
+      }
+      .drip {
+        width: 50px;
+        height: 60px;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        background-color: #d5ffff;
+        position: absolute;
+      }
+      .drip1 {
+        top: 53px;
+        left: 5px;
+        transform: skewY(15deg);
+        height: 48px;
+        width: 40px;
+      }
+      .drip2 {
+        top: 69px;
+        left: 181px;
+        transform: skewY(-15deg);
+      }
+      .drip3 {
+        top: 54px;
+        left: 90px;
+        width: 80px;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+      }
+
+      /* --- Nến số --- */
+      .candle-number {
+        position: absolute;
+        font-size: 90px;
+        font-weight: bold;
+        color: #ff4d6d;
+        text-align: center;
+        line-height: 1;
+        z-index: 10;
+        font-family: "Pacifico", cursive;
+      }
+      .candle-number .flame {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 15px;
+        height: 35px;
+        background: radial-gradient(
+          ellipse at center,
+          #ffff66 0%,
+          #ff9900 70%,
+          transparent 100%
+        );
+        border-radius: 50%;
+        box-shadow: 0 0 15px rgba(255, 200, 0, 0.8);
+        animation: flicker 0.15s infinite alternate;
+      }
+      @keyframes flicker {
+        0% {
+          transform: translateX(-50%) scale(1) skewX(3deg);
+          opacity: 0.9;
+        }
+        50% {
+          transform: translateX(-50%) scale(1.1) skewX(-3deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-50%) scale(0.95) skewX(2deg);
+          opacity: 0.85;
+        }
+      }
+
+      /* hiệu ứng tắt dần */
+      .candle-number.out .flame {
+        animation: fadeOutFlame 1s forwards;
+      }
+      @keyframes fadeOutFlame {
+        0% {
+          opacity: 1;
+          transform: translateX(-50%) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-50%) scale(0);
+        }
+      }
+
+      /* khói */
+      .smoke {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        width: 30px;
+        height: 20px;
+        background: radial-gradient(
+          circle,
+          rgba(150, 150, 150, 0.6) 20%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        opacity: 0.8;
+        transform: translateX(-50%) scale(0.5);
+        animation: riseSmoke 2s forwards;
+      }
+      @keyframes riseSmoke {
+        0% {
+          opacity: 0.8;
+          transform: translateX(-50%) translateY(0) scale(0.5);
+        }
+        50% {
+          opacity: 0.5;
+          transform: translateX(-50%) translateY(-20px) scale(0.8);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-50px) scale(1.2);
+        }
+      }
+
+      /* --- Letter phải --- */
+      .letter {
+        width: 100%;
+        height: 400px;
+        background: #fffbe6;
+        border: 2px solid #ffcc80;
+        border-radius: 12px;
+        padding: 20px;
+        font-family: "Pacifico", cursive;
+        font-size: 18px;
+        color: #444;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        opacity: 0;
+        transition: opacity 1s ease;
+        line-height: 1.5; /* tăng độ thoáng chữ */
+      }
+      .letter.show {
+        opacity: 1;
+      }
+
+      #confettiCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .audio-player {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="confettiCanvas"></canvas>
+    <div class="happy-birthday-banner">Happy Birthday TheHy <3!</div>
+
+    <div class="cake-container">
+      <!-- Card trái -->
+      <div class="cake-column">
+        <div class="card">
+          <img src="minhie.jpg" alt="Card image" />
+        </div>
+      </div>
+
+      <!-- Bánh giữa -->
+      <div class="cake-column">
+        <div class="cake">
+          <div class="plate"></div>
+          <div class="layer layer-bottom"></div>
+          <div class="layer layer-middle"></div>
+          <div class="layer layer-top"></div>
+          <div class="icing"></div>
+          <div class="drip drip1"></div>
+          <div class="drip drip2"></div>
+          <div class="drip drip3"></div>
+
+          <div class="candle-number" style="left: 70px; top: -30px">
+            2
+            <div class="flame"></div>
+          </div>
+          <div class="candle-number" style="left: 130px; top: -30px">
+            2
+            <div class="flame"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Letter phải -->
+      <div class="cake-column">
+        <div class="letter" id="letter"></div>
+      </div>
+    </div>
+
+    <div class="audio-player">
+      <audio controls autoplay>
+        <source src="birthday1.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("confettiCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const confettiCount = 150;
+      const confetti = [];
+      const colors = ["#ff4081", "#ffd740", "#69f0ae", "#40c4ff", "#ff80ab"];
+
+      for (let i = 0; i < confettiCount; i++) {
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * confettiCount,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: Math.floor(Math.random() * 10) - 10,
+          tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+          tiltAngle: 0,
+        });
+      }
+      function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < confettiCount; i++) {
+          const c = confetti[i];
+          ctx.beginPath();
+          ctx.lineWidth = c.r / 2;
+          ctx.strokeStyle = c.color;
+          ctx.moveTo(c.x + c.tilt + c.r / 4, c.y);
+          ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 4);
+          ctx.stroke();
+        }
+        updateConfetti();
+      }
+      function updateConfetti() {
+        for (let i = 0; i < confettiCount; i++) {
+          const c = confetti[i];
+          c.tiltAngle += c.tiltAngleIncremental;
+          c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+          c.x += Math.sin(c.d);
+          c.tilt = Math.sin(c.tiltAngle) * 15;
+          if (c.y > canvas.height) {
+            c.y = -10;
+            c.x = Math.random() * canvas.width;
+          }
+        }
+      }
+      (function animateConfetti() {
+        requestAnimationFrame(animateConfetti);
+        drawConfetti();
+      })();
+
+      // Mic blow detection
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then(function (stream) {
+          const audioContext = new (window.AudioContext ||
+            window.webkitAudioContext)();
+          const source = audioContext.createMediaStreamSource(stream);
+          const analyser = audioContext.createAnalyser();
+          source.connect(analyser);
+          analyser.fftSize = 512;
+
+          const dataArray = new Uint8Array(analyser.frequencyBinCount);
+          function checkVolume() {
+            analyser.getByteFrequencyData(dataArray);
+            const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+            if (volume > 60) {
+              blowOutCandles();
+            }
+            requestAnimationFrame(checkVolume);
+          }
+          checkVolume();
+        })
+        .catch((err) => console.error("Mic denied:", err));
+
+      let candlesBlown = false;
+
+      function blowOutCandles() {
+        if (candlesBlown) return; // nếu đã thổi rồi thì thôi
+        candlesBlown = true;
+
+        const candles = document.querySelectorAll(".candle-number");
+        candles.forEach((candle) => {
+          if (!candle.classList.contains("out")) {
+            candle.classList.add("out");
+            for (let i = 0; i < 3; i++) {
+              setTimeout(() => {
+                const smoke = document.createElement("div");
+                smoke.classList.add("smoke");
+                candle.appendChild(smoke);
+                setTimeout(() => smoke.remove(), 2000);
+              }, i * 400);
+            }
+          }
+        });
+
+        // typing effect for letter
+        const letter = document.getElementById("letter");
+        const message =
+          "Gửi ái khanh của bổn công tước 🎩,\n" +
+          "Hôm nay là ngày thiên hạ phải nghiêng mình vì sự xuất hiện của người.\n" +
+          "Bổn công tước chúc khanh tuổi mới:\n" +
+          "- Đạt được nguyện vọng của bản thân\n" +
+          "- Lúc nào cũng tươi cười 🌸\n" +
+          "- May mắn luôn đến với em bé 💰\n" +
+          "Mãi là bảo vật quý giá nhất trong cung điện này ❤️\n" +
+          "Cảm ơn em bé vì đã xuất hiện và đồng hành cùng anh\n" +
+          "MinHie yêu em rất nhiều moawwwww";
+
+        let index = 0;
+        letter.classList.add("show");
+        letter.textContent = "";
+
+        const typer = setInterval(() => {
+          letter.textContent += message[index];
+          index++;
+          if (index >= message.length) {
+            clearInterval(typer); // Dừng lại sau khi gõ hết
+          }
+        }, 70);
+      }
+    </script>
+  </body>
+</html>
