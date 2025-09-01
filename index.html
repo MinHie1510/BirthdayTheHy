@@ -308,7 +308,25 @@
   <body>
     <canvas id="confettiCanvas"></canvas>
     <div class="happy-birthday-banner">Happy Birthday TheHy <3!</div>
-
+    <!-- 👇 Nút bật nhạc -->
+    <button
+      id="startBtn"
+      style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: #ff80ab;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 9999;
+      "
+    >
+      Bật nhạc
+    </button>
     <div class="cake-container">
       <!-- Card trái -->
       <div class="cake-column">
@@ -454,8 +472,15 @@
 
         // bật nhạc
         const music = document.getElementById("bg-music");
-        music.muted = false;
-        music.play();
+
+        // Unlock nhạc khi click nút
+        document.getElementById("startBtn").addEventListener("click", () => {
+          music.muted = false;
+          music.play().then(() => {
+            music.pause(); // chỉ cần mở khóa audio context
+            document.getElementById("startBtn").style.display = "none"; // ẩn nút
+          });
+        });
 
         // typing effect for letter
         const letter = document.getElementById("letter");
