@@ -393,7 +393,7 @@
           function checkVolume() {
             analyser.getByteFrequencyData(dataArray);
             const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-            if (volume > 120) {
+            if (volume > 150) {
               blowOutCandles();
             }
             requestAnimationFrame(checkVolume);
