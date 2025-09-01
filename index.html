@@ -284,6 +284,25 @@
           font-size: 50px;
         }
       }
+
+      /* 👇 Thêm đoạn này để responsive */
+      @media (max-width: 768px) {
+        .cake-container {
+          flex-direction: column; /* xếp dọc khi màn hình nhỏ */
+          align-items: center;
+        }
+
+        .cake-column {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .cake-column .card {
+          width: 90%; /* thu nhỏ cho vừa màn hình */
+          max-width: 300px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -403,7 +422,7 @@
           function checkVolume() {
             analyser.getByteFrequencyData(dataArray);
             const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-            if (volume > 150) {
+            if (volume > 130) {
               blowOutCandles();
             }
             requestAnimationFrame(checkVolume);
